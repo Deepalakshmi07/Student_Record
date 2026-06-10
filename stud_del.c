@@ -1,7 +1,5 @@
 #include"header.h"
 
-//void delete_allrecord(ST **);
-//void delete_record(ST**);
 void delete_roll(ST**,int);
 void delete_name(ST **, char*);
 void delete_allrecord(ST **hptr)
