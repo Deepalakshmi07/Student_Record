@@ -47,7 +47,7 @@ void sort_record(ST *hptr)
 				}
 			}
 		}
-		printf("student record is successfully sorted based on the name\n");
+		printf("Student record is successfully sorted based on the name\n");
 		printf(" --------- ---------------------- ------------ \n");
                 printf("| %-7s | %-20s | %-10s |\n","ROLL NO","NAME","PERCENTAGE");
                 printf(" --------- ---------------------- ------------ \n");
@@ -65,7 +65,7 @@ void sort_record(ST *hptr)
 		{
 			for(int k=j+1;k<i;k++)
 			{
-				if(p[j]->mark>p[k]->mark)
+				if(p[j]->mark<p[k]->mark)
 				{
 					temp=p[j];
 					p[j]=p[k];
@@ -88,3 +88,29 @@ void sort_record(ST *hptr)
 		printf("Invalid choice\n");
 	 }
 
+void sort_percentage_desc(ST *hptr)
+{
+    ST *ptr1,*ptr2;
+    ST temp;
+
+    for(ptr1=hptr; ptr1!=0; ptr1=ptr1->next)
+    {
+        for(ptr2=ptr1->next; ptr2!=0; ptr2=ptr2->next)
+        {
+            if(ptr1->mark < ptr2->mark)
+            {
+                temp.rollno = ptr1->rollno;
+                strcpy(temp.name,ptr1->name);
+                temp.mark = ptr1->mark;
+
+                ptr1->rollno = ptr2->rollno;
+                strcpy(ptr1->name,ptr2->name);
+                ptr1->mark = ptr2->mark;
+
+                ptr2->rollno = temp.rollno;
+                strcpy(ptr2->name,temp.name);
+                ptr2->mark = temp.mark;
+            }
+        }
+    }
+}
