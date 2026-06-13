@@ -45,7 +45,7 @@ void delete_record(ST** hptr)
 	else 
 		printf("wrong option\n");
 }
-void delete_roll(ST** hptr,int roll)
+/*void delete_roll(ST** hptr,int roll)
 {
    ST *ptr,*temp;
    ptr=*hptr;
@@ -111,7 +111,7 @@ void delete_name(ST **hptr, char*p)
                 	ptr=ptr->next;
        		   }	
 		int roll;
-		printf("do you want to delete the above student data(confirm by entering roll no):");
+		printf("do you want to delete the above student data (confirm by entering roll no):");
 		scanf("%d",&roll);
 		if(roll == ptr->rollno)
 		{
@@ -146,5 +146,127 @@ void delete_name(ST **hptr, char*p)
 	{
         	printf("%s record not found\n",p);
 	}
+}*/
+
+
+void delete_roll(ST **hptr,int roll)
+{
+    ST *ptr,*prev=NULL;
+    char confirm;
+
+    ptr=*hptr;
+
+    while(ptr!=0)
+    {
+        if(ptr->rollno==roll)
+        {
+            printf("\nStudent Record Found\n");
+            printf(" --------- ---------------------- ------------ \n");
+	    printf("| %-7s | %-20s | %-10s |\n","ROLL NO","NAME","PERCENTAGE");
+	    printf(" --------- ---------------------- ------------ \n");
+	    printf("| %-7d | %-20s | %-10.2f |\n",ptr->rollno,ptr->name,ptr->mark);
+            printf(" --------- ---------------------- ------------ \n");
+
+
+            printf("Do you want to delete this record (Y/N): ");
+            scanf(" %c",&confirm);
+
+            if(confirm!='Y' && confirm!='y')
+            {
+                printf("Delete operation cancelled\n");
+                return;
+            }
+
+            if(prev==NULL)
+            {
+                *hptr=ptr->next;
+            }
+            else
+            {
+                prev->next=ptr->next;
+            }
+
+            printf("%d %s is removed from the record\n",
+                    ptr->rollno,
+                    ptr->name);
+
+            free(ptr);
+            return;
+        }
+
+        prev=ptr;
+        ptr=ptr->next;
+    }
+
+    printf("%d is not found\n",roll);
 }
+
+void delete_name(ST **hptr,char *p)
+{
+    int c=0,roll;
+    ST *ptr;
+
+    ptr=*hptr;
+
+    while(ptr!=0)
+    {
+        if(strcmp(ptr->name,p)==0)
+            c++;
+
+        ptr=ptr->next;
+    }
+
+    ptr=*hptr;
+
+    if(c>1)
+    {
+        printf("\nIdentical Names Exist\n");
+	printf(" --------- ---------------------- ------------ \n");
+	printf("| %-7s | %-20s | %-10s |\n","ROLL NO","NAME","PERCENTAGE");
+	printf(" --------- ---------------------- ------------ \n");
+
+        while(ptr!=0)
+        {
+            if(strcmp(ptr->name,p)==0)
+            {
+		    printf("| %-7d | %-20s | %-10.2f |\n",ptr->rollno,ptr->name,ptr->mark);                 
+
+            }
+
+            ptr=ptr->next;
+        }
+        printf(" --------- ---------------------- ------------ \n");
+
+        printf("Enter Roll No to Delete : ");
+        scanf("%d",&roll);
+
+        delete_roll(hptr,roll);
+    }
+    else if(c==1)
+    {
+        while(ptr!=0)
+        {
+            if(strcmp(ptr->name,p)==0)
+            {
+                /*printf("\nStudent Record Found\n");
+		printf(" --------- ---------------------- ------------ \n");
+	        printf("| %-7s | %-20s | %-10s |\n","ROLL NO","NAME","PERCENTAGE");
+	        printf(" --------- ---------------------- ------------ \n");
+		printf("| %-7d | %-20s | %-10.2f |\n",ptr->rollno,ptr->name,ptr->mark);
+                printf(" --------- ---------------------- ------------ \n");*/
+                delete_roll(hptr,ptr->rollno);
+                return;
+            }
+
+            ptr=ptr->next;
+        }
+    }
+    else
+    {
+        printf("%s record not found\n",p);
+    }
+}
+
+
+
 
