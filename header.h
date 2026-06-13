@@ -28,3 +28,4 @@ void delete_record(ST**);
 void reverse_record(ST*);
 int node_count(ST *);
 int find_roll(ST *);
+void sort_percentage_desc(ST *);
